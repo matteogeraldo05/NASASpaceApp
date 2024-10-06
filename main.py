@@ -51,7 +51,7 @@ def main():
     root.configure(bg=color_pallet[1])
 
     #title text
-    title_text = tk.Label(master=root, text="Seismic Detection-inator", font=("Nasalization RG", 40), foreground=color_pallet[0], background=color_pallet[1])
+    title_text = tk.Label(root, text="Seismic Detection-inator", font=("Nasalization RG", 40), foreground=color_pallet[0], background=color_pallet[1])
     title_text.pack(pady=20)
 
     # Browse Files button
