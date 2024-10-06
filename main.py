@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.font as tkFont
 import pyglet
 
 #will crash on macOS / linux if try except is removed
@@ -34,6 +35,7 @@ def main():
     root.resizable(0,0) #disable resizing
     
     color_pallet = ["#FFFFFF", "#121212", "#171717", "#1C1C1C", "#252525", "#383838"]
+    root.tk.call("font", "create", "Nasalization RG", "-family", "Nasalization RG")
     pyglet.font.add_file("fonts/nasalization-rg.otf")
     try:
         #get current window
@@ -46,7 +48,7 @@ def main():
     root.configure(bg=color_pallet[1])
 
     #title text
-    title_text = tk.Label(master=root, text="Seismic Detection-inator", font=("Nasalization Regular", 40), foreground=color_pallet[0], background=color_pallet[1])
+    title_text = tk.Label(master=root, text="Seismic Detection-inator", font=("Nasalization RG", 40), foreground=color_pallet[0], background=color_pallet[1])
     title_text.pack()
     # Add Browse Files button
     browse_button = tk.Button(root, text="Analyze", command=print_csv_values)
