@@ -1,5 +1,5 @@
 import tkinter as tk
-import tkinter.font as tkFont
+from tkinter import filedialog
 import pyglet
 
 #will crash on macOS / linux if try except is removed
@@ -26,6 +26,9 @@ def print_csv_values():
     for x, y in zip(data[numeric_columns[0]], data[numeric_columns[1]]):
         print(f"x: {x}, y: {y}")
 
+def import_csv_values():
+    file_path = filedialog.askopenfilename(filetypes=[("CSV Files", ".csv")])    
+
 def main():
     #window initializeation
     root = tk.Tk()
@@ -49,10 +52,15 @@ def main():
 
     #title text
     title_text = tk.Label(master=root, text="Seismic Detection-inator", font=("Nasalization RG", 40), foreground=color_pallet[0], background=color_pallet[1])
-    title_text.pack()
-    # Add Browse Files button
-    browse_button = tk.Button(root, text="Analyze", command=print_csv_values)
+    title_text.pack(pady=20)
+
+    # Browse Files button
+    browse_button = tk.Button(root, text="Import CSV", command=import_csv_values)
     browse_button.pack(pady=20)
+
+    # Analyze Files button
+    analyze_button = tk.Button(root, text="Analyze", command=print_csv_values)
+    analyze_button.pack(pady=20)
 
     #run
     root.mainloop()
