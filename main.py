@@ -25,13 +25,13 @@ def print_csv_values():
         return
 
     data = pd.read_csv(csv_file_path)
-    numeric_columns = data.select_dtypes(include=['number']).columns
+    columns = data.select_dtypes(include=['number']).columns
 
-    if len(numeric_columns) < 2:
-        print("Not enough numeric columns in the selected CSV file")
+    if len(columns) < 2:
+        print("column not found")
         return
 
-    for x, y in zip(data[numeric_columns[0]], data[numeric_columns[1]]):
+    for x, y in zip(data[columns[0]], data[columns[1]]):
         print(f"x: {x}, y: {y}")
 
 def import_csv_values():
@@ -69,13 +69,38 @@ def main():
     title_text.pack()
 
      # Add Import CSV button
-    import_button = tk.Button(root, text="Import CSV", command=import_csv_values)
+    # Create a style for the buttons to make them round
+    style = tk.ttk.Style()
+    style.configure("RoundedButton.TButton", 
+                    borderwidth=1, 
+                    relief="solid", 
+                    background=color_pallet[1], 
+                    foreground=color_pallet[0], 
+                    font=("Nasalization RG", 12),
+                    padding=10)
+    style.map("RoundedButton.TButton",
+              background=[('active', color_pallet[2])])
+
+    # Add Import CSV button
+    import_button = tk.ttk.Button(root, text="Import CSV", style="RoundedButton.TButton", command=import_csv_values)
     import_button.pack(pady=20)
-    
+
     # Add Browse Files button
-    browse_button = tk.Button(root, text="Analyze", command=print_csv_values)
+    browse_button = tk.ttk.Button(root, text="Analyze", style="RoundedButton.TButton", command=print_csv_values)
     browse_button.pack(pady=20)
 
+    status_label = tk.Label(root, text="", fg="white", bg=color_pallet[1])
+    status_label.pack(pady=10)
+
+    def update_status_label():
+        if not csv_file_path:
+            status_label.config(text="No file selected. Please import a CSV file first.")
+        else:
+            status_label.config(text=f"File selected: {csv_file_path}")
+
+    import_button.config(command=lambda: [import_csv_values(), update_status_label()])
+    browse_button.config(command=lambda: [print_csv_values(), update_status_label()])
+  
 
     # run
     root.mainloop()
