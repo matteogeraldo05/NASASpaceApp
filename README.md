@@ -28,6 +28,7 @@ As part of the NASA Space Apps Challenge, our challenge is to write a computer p
 - **Matteo De Angelis Geraldo**
 - **Thaddeus Baturensky**
 - **Mohammed Ayaan**
+- **Thomas Petkovic**
 
 ## Acknowledgements
 We would like to thank NASA for providing the datasets and resources that made this project possible. A special thanks to the organizers of the NASA Space Apps Challenge for creating a platform for innovation and collaboration. Additionally, we are grateful to our mentors and the scientific community for their invaluable insights and support throughout this project.
