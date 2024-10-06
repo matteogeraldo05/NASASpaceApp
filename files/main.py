@@ -1,10 +1,28 @@
 import tkinter as tk
+from tkinter import filedialog
 #will crash on macOS / linux if try except is removed
 try:
     from ctypes import windll, byref, sizeof, c_int
 except:
     pass
-import pandas
+import pandas as pd
+import os
+
+def print_csv_values():
+    file_path = os.path.join(os.path.dirname(__file__), 'numbers.csv')
+    if not os.path.exists(file_path):
+        print("numbers.csv not found")
+        return
+
+    data = pd.read_csv(file_path)
+    numeric_columns = data.select_dtypes(include=['number']).columns
+
+    if len(numeric_columns) < 2:
+        print("Not enough numeric columns in numbers.csv")
+        return
+
+    for x, y in zip(data[numeric_columns[0]], data[numeric_columns[1]]):
+        print(f"x: {x}, y: {y}")
 
 def main():
     #window initializeation
@@ -25,11 +43,12 @@ def main():
     
     root.configure(bg=color_pallet[0])
 
-    
+    # Add Browse Files button
+    browse_button = tk.Button(root, text="Analyze", command=print_csv_values)
+    browse_button.pack(pady=20)
+
     #run
     root.mainloop()
 
 if __name__ == "__main__":
     main()
-
-  
