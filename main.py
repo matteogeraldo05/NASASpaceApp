@@ -61,7 +61,7 @@ def make_graph(data):
             widget.get_tk_widget().destroy()
 
     # Create a new figure
-    plt.figure(figsize=(8, 4))
+    plt.figure(figsize=(10, 4))
 
     # Plotting
     plt.plot(data['rel_time(sec)'], data['velocity(c/s)'], marker='o', linestyle='-', color='b')
