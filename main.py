@@ -1,5 +1,9 @@
 import tkinter as tk
-from ctypes import windll, byref, sizeof, c_int
+#will crash on macOS / linux if try except is removed
+try:
+    from ctypes import windll, byref, sizeof, c_int
+except:
+    pass
 import pandas
 
 def main():
