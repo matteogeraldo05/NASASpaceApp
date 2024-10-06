@@ -1,4 +1,4 @@
-# NASA Space Apps Challenge Project: Earthquake Prediction Using Seismometer Data
+# NASA Space Apps Challenge Project:
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -8,10 +8,10 @@
 - [Acknowledgements](#acknowledgements)
 
 ## Project Overview
-Our project aims to analyze seismic data from the Apollo missions and the Mars InSight Lander to identify seismic events and predict potential earthquakes. By exercising our knowledge of data structures, algorithms and data analysis, we strive to enhance our understanding of planetary seismic activity and contribute to earthquake prediction efforts.
+Our project aims to analyze seismic data from the Apollo missions and the Mars InSight Lander to identify seismic events and predict potential earthquakes. By exercising our knowledge of data structures, algorithms and data analysis, we strive to enhance our understanding of planetary seismic activity.
 
 ## Challenge Statement
-As part of the NASA Space Apps Challenge, our challenge is to write a computer program that analyzes real data from the Apollo missions and the Mars Interior Exploration. Our goal is to identify seismic events within the provided datasets, ultimately leading to more accurate predictions of earthquakes.
+As part of the NASA Space Apps Challenge, our challenge is to write a computer program that analyzes real data from the Apollo missions and the Mars Interior Exploration. Our goal is to identify seismic events within the provided datasets.
 
 ## Technologies Used
 - Python
