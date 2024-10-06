@@ -1,5 +1,6 @@
 import tkinter as tk
-from tkinter import filedialog
+import pyglet
+
 #will crash on macOS / linux if try except is removed
 try:
     from ctypes import windll, byref, sizeof, c_int
@@ -32,7 +33,8 @@ def main():
     root.geometry("960x540")
     root.resizable(0,0) #disable resizing
     
-    color_pallet = ["#121212", "#171717", "#1C1C1C", "#252525", "#383838"]
+    color_pallet = ["#FFFFFF", "#121212", "#171717", "#1C1C1C", "#252525", "#383838"]
+    pyglet.font.add_file("fonts/nasalization-rg.otf")
     try:
         #get current window
         HWND = windll.user32.GetParent(root.winfo_id()) #get window handle from current open window (root)
@@ -41,12 +43,11 @@ def main():
     except:
         pass
     
-    root.configure(bg=color_pallet[0])
+    root.configure(bg=color_pallet[1])
 
     #title text
-    title_text = tk.Label(master=root, text="Seismic Detection-inator")
+    title_text = tk.Label(master=root, text="Seismic Detection-inator", font=("NasalizationRg-Regular", 40), foreground=color_pallet[0], background=color_pallet[1])
     title_text.pack()
-
     # Add Browse Files button
     browse_button = tk.Button(root, text="Analyze", command=print_csv_values)
     browse_button.pack(pady=20)
