@@ -64,7 +64,7 @@ def make_graph(data):
     plt.figure(figsize=(10, 4))
 
     # Plotting
-    plt.plot(data['rel_time(sec)'], data['velocity(c/s)'], marker='o', linestyle='-', color='b')
+    plt.plot(data['rel_time(sec)'], data['velocity(c/s)'], marker='o', linestyle='-', color='b', markersize=0.1)
     plt.title('Velocity over Time')
     plt.xlabel('Relative Time (sec)')
     plt.ylabel('Velocity (c/s)')
