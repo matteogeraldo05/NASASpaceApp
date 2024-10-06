@@ -9,7 +9,7 @@ import pandas as pd
 import os
 
 def print_csv_values():
-    file_path = os.path.join(os.path.dirname(__file__), 'numbers.csv')
+    file_path = os.path.join(os.path.dirname(__file__), 'files', 'numbers.csv')
     if not os.path.exists(file_path):
         print("numbers.csv not found")
         return
