@@ -1,14 +1,14 @@
 import tkinter as tk
-
+import pandas
 
 def main():
-   
-
+    #window initializeation
     root = tk.Tk()
-    root.title("Basic GUI Window")
-    root.geometry("1920x1080")  # Move 2 pixels to the left
+    root.title("NASA Space App")
+    root.attributes("-fullscreen", True)
     root.configure(bg="#252526")
 
+    #run main
     root.mainloop()
 
 if __name__ == "__main__":
