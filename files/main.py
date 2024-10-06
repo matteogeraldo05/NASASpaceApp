@@ -1,3 +1,4 @@
+
 import tkinter as tk
 from tkinter import filedialog
 #will crash on macOS / linux if try except is removed
@@ -43,16 +44,6 @@ def main():
     
     root.configure(bg=color_pallet[0])
 
-    #title text
-    title_text = tk.Label(master=root, text="Seismic Detection-inator")
-    title_text.pack()
-
-     # Load Nasalization RG font
-    font_path = os.path.join(os.path.dirname(__file__), 'fonts', 'Nasalization-Rg.ttf')
-    if os.path.exists(font_path):
-        nasalization_font = tkfont.Font(family="Nasalization RG", size=12, weight="normal")
-        title_text.configure(font=nasalization_font)
-
     # Add Browse Files button
     browse_button = tk.Button(root, text="Analyze", command=print_csv_values)
     browse_button.pack(pady=20)
@@ -62,5 +53,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-    
