@@ -100,7 +100,7 @@ def main():
     global root, save_button
     # window initialization
     root = tkinter.Tk()
-    root.title("NASA Space App")
+    root.title("NASA Space Apps Challenge 2024")
     root.iconbitmap("images/nasa.ico")
     root.geometry("1152x648")
     root.resizable(0, 0)  # disable resizing
@@ -139,7 +139,7 @@ def main():
     #background_label.image = background_image  # Keep a reference to avoid garbage collection
 
     # Title text
-    title_text = tkinter.Label(master=root, text="Seismic Detection-inator", font=("Nasalization RG", 40), foreground=color_pallet[0], background=color_pallet[1])
+    title_text = tkinter.Label(master=root, text="Seismic Data Plotter", font=("Nasalization RG", 40), foreground=color_pallet[0], background=color_pallet[1])
     title_text.grid(row=0, column=0, columnspan=3, pady=(20), sticky="n")  
 
      # Configure grid weights for proper alignment
@@ -160,12 +160,12 @@ def main():
     import_button.grid(row=2, column=0, padx=20, pady=40, sticky="ew") 
 
     # Add Analyze button
-    browse_button = customtkinter.CTkButton(root, text="ANALYZE", command=print_csv_values, width=100, height=50) 
+    browse_button = customtkinter.CTkButton(root, text="PLOT DATA", command=print_csv_values, width=100, height=50) 
     browse_button.configure(corner_radius=12, fg_color=color_pallet[3], hover_color=color_pallet[4], text_color=color_pallet[0], font=("Nasalization RG", 24))
     browse_button.grid(row=2, column=2, padx=20, pady=40, sticky="ew") 
 
     # Add Save button
-    save_button = customtkinter.CTkButton(root, text="SAVE", command=save_graph, width=100, height=50)
+    save_button = customtkinter.CTkButton(root, text="SAVE PLOT", command=save_graph, width=100, height=50)
     save_button.configure(corner_radius=12, fg_color=color_pallet[3], hover_color=color_pallet[4], text_color=color_pallet[0], font=("Nasalization RG", 24))
     save_button.grid(row=2, column=1, padx=20, pady=40, sticky="ew")
     save_button.grid_remove()
