@@ -9,6 +9,7 @@
 
 ## Project Overview
 Our project aims to analyze seismic data from the Apollo missions and the Mars InSight Lander to identify seismic events and predict potential earthquakes. By exercising our knowledge of data structures, algorithms and data analysis, we strive to enhance our understanding of planetary seismic activity.
+![]([https://github.com/Your_Repository_Name/Your_GIF_Name.gif](https://github.com/matteogeraldo05/NASASpaceApp/blob/main/images/plot.gif))
 
 ## Challenge Statement
 As part of the NASA Space Apps Challenge, our challenge is to write a computer program that analyzes real data from the Apollo missions and the Mars Interior Exploration. Our goal is to identify seismic events within the provided datasets.
