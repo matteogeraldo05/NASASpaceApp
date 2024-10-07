@@ -2,6 +2,8 @@
 #include <fstream>
 #include <string>
 #include <list>
+#include <vector>
+#include <cmath> // For std::abs
 
 using namespace std;
 
@@ -14,9 +16,9 @@ class DataPoint {
         string minute;
         string second;
         string relTime;
-        string velocity;
-        string LTA;
-        string STA;
+        double velocity;
+        double LTA;
+        double STA;
 
     public:
         // Constructors
@@ -28,12 +30,12 @@ class DataPoint {
             minute = "0";
             second = "0";
             relTime = "0";
-            velocity = "0";
-            LTA = "0";
-            STA = "0";
+            velocity = 0;
+            LTA = 0;
+            STA = 0;
         }
 
-        DataPoint(string sYear, string sMonth, string sDay, string sHour, string sMinute, string sSecond, string sRelTime, string sVelocity, string sLTA, string sSTA) {
+        DataPoint(string sYear, string sMonth, string sDay, string sHour, string sMinute, string sSecond, string sRelTime, double sVelocity, double sLTA, double sSTA) {
             this->year = sYear;
             this->month = sMonth;
             this->day = sDay;
@@ -44,7 +46,6 @@ class DataPoint {
             this->velocity = sVelocity;
             this->LTA = sLTA;
             this->STA = sSTA;
-
         }
 
         // Getters and Setters
@@ -56,27 +57,27 @@ class DataPoint {
             this->relTime = relTime;
         }
 
-        string getVelocity() const {
+        double getVelocity() const {
             return velocity;
         }
 
-        void setVelocity(string velocity) {
+        void setVelocity(double velocity) {
             this->velocity = velocity;
         }
 
-        string getLTA() const {
+        double getLTA() const {
             return LTA;
         }
 
-        void setLTA(string LTA) {
+        void setLTA(double LTA) {
             this->LTA = LTA;
         }
 
-        string getSTA() const {
+        double getSTA() const {
             return STA;
         }
 
-        void setSTA(string STA) {
+        void setSTA(double STA) {
             this->STA = STA;
         }
 
@@ -130,7 +131,8 @@ class DataPoint {
 
 
         void toString(){
-            cout << year << "-" << month << "-" << day << " | " << hour << ":" << minute << ":" << second << " | "<< "Relative Time: " << relTime << " | Velocity(c/s): " << velocity << endl;
+            cout << year << "-" << month << "-" << day << " | " << hour << ":" << minute << ":" << second
+            << " | "<< "Relative Time: " << relTime << " | Velocity(c/s): " << velocity << " | LTA: " << this->LTA << " | STA: " << this->STA << endl;
         }
 
 };
@@ -178,6 +180,25 @@ string substringBetween(const std::string& str, size_t startIndex, char lookFor)
     return ""; 
 }
 
+double calculateLTA(vector<DataPoint*> vec, int sizeOfLTA) {
+    double sum = 0;
+    for (int i = 0; i < sizeOfLTA; i++) {
+        sum += vec.at(i)->getVelocity();
+    }
+
+    return (sum/sizeOfLTA);
+
+}
+
+double calculateSTA(vector<DataPoint*> vec, int sizeOfSTA) {
+    double sum = 0;
+    for (int i = 0; i < sizeOfSTA; i++) {
+        sum += vec.at(i)->getVelocity();
+    }
+
+    return (sum/sizeOfSTA);
+
+}
 
 
 
@@ -186,10 +207,15 @@ int main() {
 
     list<DataPoint> listOfPoints;
 
-    ifstream MyReadFile("XB.ELYSE.02.BHV.2022-01-02HR04_evid0006.csv");
+    vector<DataPoint*> arrLTA(20, nullptr);
+    vector<DataPoint*> arrSTA(5, nullptr);
+
+    ifstream MyReadFile("files/perfectdata.csv");
 
     if (MyReadFile.is_open()) {
         int lineNum = 0;
+        int sizeOfLTA = 0;
+        int sizeOfSTA = 0;
         while (getline(MyReadFile, myText)) {
             if (lineNum != 0){
 
@@ -209,27 +235,72 @@ int main() {
                 
 
                 string textBeforeComma = substringBefore(myText, 0, ',');
-                myText = substringAfter(myText, 0, ',');
-                string textAfterCommas = substringAfter(myText, 0, ',');
-                //cout << year << "-" << month << "-" << day << " | " << hour << ":" << minute << ":" << second << " | "<< "Relative Time: " << textBeforeComma << " | Velocity(c/s): " << myText << endl;
+                double velocity = stod(substringAfter(myText, 0, ','));
 
 
 
-                DataPoint point = DataPoint(year,month,day,hour,minute,second,textBeforeComma,myText, "0", "0");
 
-                listOfPoints.push_back(point);
 
-                point.toString();
 
+                DataPoint point = DataPoint(year,month,day,hour,minute,second,textBeforeComma,velocity, 0, 0);
+                DataPoint* newPtr = new DataPoint(year, month, day, hour, minute, second, textBeforeComma, velocity, 0, 0);
+
+
+                if (sizeOfLTA < 20) {
+                    arrLTA[sizeOfLTA] = newPtr; 
+                    sizeOfLTA += 1;
+
+                } else {
+
+                    delete arrLTA[0];
+                    for (int i = 0; i < 20; i++) {
+                        if (i + 1 <= 20){
+                            arrLTA[i] = arrLTA[i + 1];
+                        }
+                    }
+                    arrLTA[19] = newPtr;
+                }
+
+                if (sizeOfSTA < 5) {
+                    arrSTA[sizeOfSTA] = newPtr; 
+                    sizeOfSTA += 1;
+                } else {
+                    for (int i = 0; i < 4; i++) { 
+                        arrSTA[i] = arrSTA[i + 1];
+                    }
+                    arrSTA[4] = newPtr;
+}
+
+
+                double LTA = calculateLTA(arrLTA,sizeOfLTA);
+                double STA = calculateLTA(arrSTA,sizeOfSTA);
+                point.setLTA(LTA);
+                point.setSTA(STA);
+                
+                
+                listOfPoints.push_back(point); 
 
             }
             lineNum++;
         }
-        
+
+        for(DataPoint p : listOfPoints){
+            p.toString();
+        }
+
+        for (DataPoint* ptr : arrLTA) {
+            delete ptr;
+        }
+
+         for (DataPoint* ptr : arrSTA) {
+             delete ptr;
+        }
+
         MyReadFile.close();
     } else {
         cout << "Unable to open file!" << endl;
     }
+
 
     return 0;
 }
