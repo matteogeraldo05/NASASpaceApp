@@ -279,17 +279,7 @@ int main() {
                 
                 
                 listOfPoints.push_back(point); 
-
-
-                /*if the current velocity's absolute value is 2 times greater than the
-                  absolute value of the short term average, and the short term average is
-                  3 times greater than the long term average, mark the datapoint as a seismic
-                  event (maybe push it to a list) 
-                  
-                  then look for the inverse. if the absolute value of the current velocity is 1/2
-                  the absolute value of the short term average, and the short term average is 1/3
-                  of the long term average, mark the datapoint as the end of a seismic event. */
-
+                
                 if (!(isSeismicEvent) && abs(velocity)/35 > abs(STA) && abs(STA)/35 > abs(LTA)) {
                     seismicEvents.push_back(point);
                     isSeismicEvent = true;
