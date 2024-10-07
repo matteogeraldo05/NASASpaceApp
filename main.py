@@ -2,12 +2,8 @@ import tkinter
 import customtkinter
 import pygame
 import os
-import numpy
 import pandas
-import csv
 import matplotlib.pyplot as plt
-from obspy import read
-from datetime import datetime, timedelta
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 # !!DO NOT REMOVE THIS TRY STATMENT UNDER ANY CIRCUMSTANCE
 try:
