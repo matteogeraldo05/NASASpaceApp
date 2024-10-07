@@ -83,6 +83,8 @@ def make_graph(data):
 
     
 
+    
+
 def save_graph():
     global final_graph
     if final_graph is None:
@@ -126,6 +128,7 @@ def main():
     except:
         pass
 
+    # Set background color
     # Set background color
     root.configure(bg=color_pallet[1])
 
