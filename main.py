@@ -2,8 +2,12 @@ import tkinter
 import customtkinter
 import pygame
 import os
+import numpy
 import pandas
+import csv
 import matplotlib.pyplot as plt
+from obspy import read
+from datetime import datetime, timedelta
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 # !!DO NOT REMOVE THIS TRY STATMENT UNDER ANY CIRCUMSTANCE
 try:
@@ -37,8 +41,9 @@ def print_csv_values():
     #*Test case
     #*for x, y in zip(data[numeric_columns[0]], data[numeric_columns[1]]):
     #*    print(f"x: {x}, y: {y}")  
-    #pygame.mixer.Sound("audio/zoom.wav").play()
-    make_graph(data);
+    
+    make_graph(data)
+    pygame.mixer.Sound("audio/zoom.wav").play()
 
 #TODO make it import csv, run c++ file and use the spat out csv
 def import_csv_values():
@@ -75,6 +80,8 @@ def make_graph(data):
     canvas.draw()
     #unhide save button
     save_button.grid(row=2, column=1, padx=20, pady=40, sticky="ew")
+
+    
 
 def save_graph():
     global final_graph
@@ -119,7 +126,14 @@ def main():
     except:
         pass
 
+    # Set background color
     root.configure(bg=color_pallet[1])
+
+    # Load and set custom background image
+    #background_image = tkinter.PhotoImage(file="images/spacebg.png")
+    #background_label = tkinter.Label(root, image=background_image)
+    #background_label.place(relwidth=1, relheight=1)
+    #background_label.image = background_image  # Keep a reference to avoid garbage collection
 
     # Title text
     title_text = tkinter.Label(master=root, text="Seismic Detection-inator", font=("Nasalization RG", 40), foreground=color_pallet[0], background=color_pallet[1])
