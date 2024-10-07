@@ -207,8 +207,10 @@ int main() {
 
     list<DataPoint> listOfPoints;
 
-    vector<DataPoint*> arrLTA(20, nullptr);
-    vector<DataPoint*> arrSTA(5, nullptr);
+    vector<DataPoint*> arrLTA(300, nullptr);
+    vector<DataPoint*> arrSTA(30, nullptr);
+
+    vector<DataPoint> seismicEvents;
 
     ifstream MyReadFile("files/perfectdata.csv");
 
@@ -216,6 +218,8 @@ int main() {
         int lineNum = 0;
         int sizeOfLTA = 0;
         int sizeOfSTA = 0;
+        bool isSeismicEvent = false;
+
         while (getline(MyReadFile, myText)) {
             if (lineNum != 0){
 
@@ -238,38 +242,34 @@ int main() {
                 double velocity = stod(substringAfter(myText, 0, ','));
 
 
-
-
-
-
                 DataPoint point = DataPoint(year,month,day,hour,minute,second,textBeforeComma,velocity, 0, 0);
                 DataPoint* newPtr = new DataPoint(year, month, day, hour, minute, second, textBeforeComma, velocity, 0, 0);
 
 
-                if (sizeOfLTA < 20) {
+                if (sizeOfLTA < 300) {
                     arrLTA[sizeOfLTA] = newPtr; 
                     sizeOfLTA += 1;
 
                 } else {
 
                     delete arrLTA[0];
-                    for (int i = 0; i < 20; i++) {
-                        if (i + 1 <= 20){
+                    for (int i = 0; i < 300; i++) {
+                        if (i + 1 <= 300){
                             arrLTA[i] = arrLTA[i + 1];
                         }
                     }
-                    arrLTA[19] = newPtr;
+                    arrLTA[299] = newPtr;
                 }
 
-                if (sizeOfSTA < 5) {
+                if (sizeOfSTA < 30) {
                     arrSTA[sizeOfSTA] = newPtr; 
                     sizeOfSTA += 1;
                 } else {
-                    for (int i = 0; i < 4; i++) { 
+                    for (int i = 0; i < 30; i++) { 
                         arrSTA[i] = arrSTA[i + 1];
                     }
-                    arrSTA[4] = newPtr;
-}
+                    arrSTA[29] = newPtr;
+                }
 
 
                 double LTA = calculateLTA(arrLTA,sizeOfLTA);
@@ -280,27 +280,55 @@ int main() {
                 
                 listOfPoints.push_back(point); 
 
+
+                /*if the current velocity's absolute value is 2 times greater than the
+                  absolute value of the short term average, and the short term average is
+                  3 times greater than the long term average, mark the datapoint as a seismic
+                  event (maybe push it to a list) 
+                  
+                  then look for the inverse. if the absolute value of the current velocity is 1/2
+                  the absolute value of the short term average, and the short term average is 1/3
+                  of the long term average, mark the datapoint as the end of a seismic event. */
+
+                if (!(isSeismicEvent) && abs(velocity)/35 > abs(STA) && abs(STA)/35 > abs(LTA)) {
+                    seismicEvents.push_back(point);
+                    isSeismicEvent = true;
+                }
+                else if (isSeismicEvent && abs(velocity)*10 < abs(STA) && abs(STA)*10 < abs(LTA)) {
+                    seismicEvents.push_back(point);
+                    isSeismicEvent = false;
+                }
+
+
+                
+
             }
             lineNum++;
         }
 
-        for(DataPoint p : listOfPoints){
-            p.toString();
-        }
+        // for(DataPoint p : listOfPoints){
+        //     p.toString();
+        // }
 
-        for (DataPoint* ptr : arrLTA) {
-            delete ptr;
-        }
-
-         for (DataPoint* ptr : arrSTA) {
-             delete ptr;
-        }
 
         MyReadFile.close();
     } else {
         cout << "Unable to open file!" << endl;
     }
 
+    cout << "----------Recorded Seismic Events:------------" << endl;
+
+    for (int i = 0; i < seismicEvents.size(); i++) {
+        if (i%2==0) {
+            cout << "Start of event: " << endl;
+            (seismicEvents.at(i)).toString();
+        }
+
+        else {
+            cout << "End of event: "<< endl;
+            (seismicEvents.at(i)).toString();
+        }
+    }
 
     return 0;
 }
